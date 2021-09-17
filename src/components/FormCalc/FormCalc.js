@@ -32,7 +32,7 @@ function FormCalc(props) {
           placeholder="Ingresa tu nombre"
         ></input>
         <div className="mt-3">
-          <span>Locación:</span>
+          <span>Locación(*opcional):</span>
         </div>
         <select
           className="form-select"

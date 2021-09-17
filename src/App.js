@@ -12,37 +12,52 @@ function App() {
 
   const apiGet = async (e, form) => {
     e.preventDefault();
-    
-    const { name } = form;
 
-    if (name === "") {
-      alert("escribe un nombre");
+    const { name, select } = form;
+
+    if (select !== "") {
+      const response = await fetch(
+        `https://api.agify.io?name=${name}&country_id=${select}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const res = await response.json();
+      setData(res);
+      setModalState1(true);
     } else {
-      if (name.indexOf(" ") !== -1) {
-        const names = name.split(" ");
-        let namesUrl = names[0];
-
-        names.forEach((element, i) => {
-          if (i > 0) {
-            namesUrl += `&name[]=${element}`;
-          }
-        });
-
-        const response = await fetch(`https://api.agify.io?name=${namesUrl}`, {
-          method: "GET",
-        });
-
-        const res = await response.json();
-        setData(res);
-        setModalState2(true);
-
+      if (name === "") {
+        alert("escribe un nombre");
       } else {
-        const response = await fetch(`https://api.agify.io?name=${name}`, {
-          method: "GET",
-        });
-        const res = await response.json();
-        setData(res);
-        setModalState1(true);
+        if (name.indexOf(" ") !== -1) {
+          const names = name.split(" ");
+          let namesUrl = names[0];
+
+          names.forEach((element, i) => {
+            if (i > 0) {
+              namesUrl += `&name[]=${element}`;
+            }
+          });
+
+          const response = await fetch(
+            `https://api.agify.io?name=${namesUrl}`,
+            {
+              method: "GET",
+            }
+          );
+
+          const res = await response.json();
+          setData(res);
+          setModalState2(true);
+        } else {
+          const response = await fetch(`https://api.agify.io?name=${name}`, {
+            method: "GET",
+          });
+          const res = await response.json();
+          setData(res);
+          setModalState1(true);
+        }
       }
     }
   };
@@ -75,7 +90,9 @@ function App() {
             <p>{data.count}</p>
           </ModalCalc>
           <ModalCalc modalState={modalState2} changeModal={setModalState2}>
-            <Link to="/app" className="btn btn-primary">Visualizar Lista</Link>
+            <Link to="/app" className="btn btn-primary">
+              Visualizar Lista
+            </Link>
           </ModalCalc>
         </Route>
         <Route path="/app">
