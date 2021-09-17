@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FormCalc from "./components/FormCalc";
+import ListPersons from "./components/ListPersons/ListPersons";
 
 function App() {
   const [data, setData] = useState([]);
@@ -19,20 +20,19 @@ function App() {
         let namesUrl = names[0];
 
         names.forEach((element, i) => {
-          if(i > 0){
-            namesUrl += `&name[]=${element}`
+          if (i > 0) {
+            namesUrl += `&name[]=${element}`;
           }
         });
-        
-        console.log(namesUrl)
-        
+
+        console.log(namesUrl);
+
         const response = await fetch(`https://api.agify.io?name=${namesUrl}`, {
           method: "GET",
         });
 
         const res = await response.json();
         setData(res);
-
       } else {
         const response = await fetch(`https://api.agify.io?name=${name}`, {
           method: "GET",
@@ -55,7 +55,7 @@ function App() {
         </li>
         <li className="nav-item">
           <Link to="/app" className="nav-link">
-            App
+            Lista de Personas
           </Link>
         </li>
       </ul>
@@ -63,7 +63,9 @@ function App() {
         <Route path="/" exact>
           <FormCalc calc={apiGet}></FormCalc>
         </Route>
-        <Route path="/app">saasdfasdfa</Route>
+        <Route path="/app">
+          <ListPersons persons={data}></ListPersons>
+        </Route>
       </Switch>
     </Router>
   );

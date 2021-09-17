@@ -22,13 +22,21 @@ function FormCalc(props) {
           <h2 >Calcula tu fecha</h2>
         </div>
         <div className="mt-3">
-          <span>Nombre:</span>
+          <span>Nombre(s):</span>
         </div>
         <input
           type="text"
           name="name"
           className="form-control"
           placeholder="Ingresa tu nombre"
+        ></input>
+        <div className="mt-3">
+          <span>Locación:</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Locación"
         ></input>
         <button type="submit" className="btn btn-primary mt-3">
           calcular
