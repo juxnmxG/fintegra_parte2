@@ -3,9 +3,12 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import FormCalc from "./components/FormCalc";
 import ListPersons from "./components/ListPersons/ListPersons";
+import ModalCalc from "./components/ModalCalc";
 
 function App() {
   const [data, setData] = useState([]);
+  const [modalState1, setModalState1] = useState(false);
+  const [modalState2, setModalState2] = useState(false);
 
   const apiGet = async (e, form) => {
     e.preventDefault();
@@ -33,12 +36,15 @@ function App() {
 
         const res = await response.json();
         setData(res);
+        setModalState2(true);
+
       } else {
         const response = await fetch(`https://api.agify.io?name=${name}`, {
           method: "GET",
         });
         const res = await response.json();
         setData(res);
+        setModalState1(true);
       }
     }
   };
@@ -62,6 +68,17 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <FormCalc calc={apiGet}></FormCalc>
+          <ModalCalc modalState={modalState1} changeModal={setModalState1}>
+            <h3>Nombre</h3>
+            <p>{data.name}</p>
+            <h3>Predición de edad</h3>
+            <p>{data.age}</p>
+            <h3>Count</h3>
+            <p>{data.count}</p>
+          </ModalCalc>
+          <ModalCalc modalState={modalState2} changeModal={setModalState2}>
+            <Link to="/app" className="btn btn-primary">Visualizar Lista</Link>
+          </ModalCalc>
         </Route>
         <Route path="/app">
           <ListPersons persons={data}></ListPersons>

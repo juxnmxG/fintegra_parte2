@@ -1,0 +1,14 @@
+div.list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.card{
+    width: 30%;
+    padding: 10px;
+    background-color: royalblue;
+    margin: 20px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.7); ;
+}
