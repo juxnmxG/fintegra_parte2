@@ -6,6 +6,7 @@ function FormCalc(props) {
 
   const [form, setForm] = useState({
     name: "",
+    select: "",
   });
 
   const update = (e) => {
@@ -19,7 +20,7 @@ function FormCalc(props) {
     <div className="formC">
       <form onChange={update} onSubmit={(e) => calc(e, form)}>
         <div className="mt-auto">
-          <h2 >Calcula tu fecha</h2>
+          <h2>Calcula tu fecha</h2>
         </div>
         <div className="mt-3">
           <span>Nombre(s):</span>
@@ -33,11 +34,16 @@ function FormCalc(props) {
         <div className="mt-3">
           <span>Locación:</span>
         </div>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Locación"
-        ></input>
+        <select
+          className="form-select"
+          aria-label="Default select example"
+          name="select"
+        >
+          <option value="0">Seleccionar</option>
+          <option value="CO">Colombia</option>
+          <option value="US">Estados Unidos</option>
+          <option value="ES">Epaña</option>
+        </select>
         <button type="submit" className="btn btn-primary mt-3">
           calcular
         </button>

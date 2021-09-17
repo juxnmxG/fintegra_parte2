@@ -12,7 +12,7 @@ function App() {
 
   const apiGet = async (e, form) => {
     e.preventDefault();
-
+    
     const { name } = form;
 
     if (name === "") {
@@ -27,8 +27,6 @@ function App() {
             namesUrl += `&name[]=${element}`;
           }
         });
-
-        console.log(namesUrl);
 
         const response = await fetch(`https://api.agify.io?name=${namesUrl}`, {
           method: "GET",
